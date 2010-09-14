@@ -1,0 +1,26 @@
+ReverseHTTP is a cool thing I saw Tony Garnock-Jones demo to me a little while back. Tony showed how you can turn a browser into a web server, by connecting it to an online bridge, which for him was a RabbitMQ instance.
+
+His demo is offline now, but the project site is still up at: http://reversehttp.net/.
+
+I have reimplemented the concept using Node.JS and Socket.IO. Here's the flow:
+
+- socket server (running Node.JS and Socket.IO) sits waiting for connections
+- a web browser connects to the socket server via a simple webpage (using the Socket.IO client). Let's call this the socket client
+- another web browser makes a HTTP GET to a HTML server (the same Node.JS listening on a different port)
+- the HTML server sends the request on to the socket client
+- the response to the HTTP GET is determined by whatever the socket client responds with
+
+In other words, the bits sitting in the cloud become dumb brokers and the "app" is entirely running inside the socket client i.e. a webpage.
+
+Neat, huh?
+
+----
+
+Usage:
+
+> node reverseHTTPServer.js
+
+Dependencies:
+
+- Socket.IO - http://github.com/LearnBoost/Socket.IO-node
+- Socket.IO's client library - http://github.com/LearnBoost/Socket.IO
